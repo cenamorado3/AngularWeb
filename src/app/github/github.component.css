@@ -1,0 +1,10 @@
+.avatar { 
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+}
+
+.media
+{
+    padding: 20px;
+}

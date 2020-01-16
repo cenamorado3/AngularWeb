@@ -1,0 +1,12 @@
+<div>
+  <disarray title="Welcome to the Archive">
+    <ul>
+      <li>
+        <a routerLink="/">Home</a>
+      </li>
+      <li *ngFor="let archive of archives">
+        <a [routerLink]="['/archive', archive.name | lowercase]">{{ archive.name}}</a>
+      </li>
+    </ul>
+  </disarray>
+</div>

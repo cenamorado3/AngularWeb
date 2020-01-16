@@ -1,0 +1,15 @@
+div
+{
+    padding: 20px;
+}
+
+li
+{
+    padding: 10px;
+    list-style: none;
+}
+li:hover
+{
+    background-color: rgba(130, 183, 233, 0.322);
+    width: 100px;
+}
