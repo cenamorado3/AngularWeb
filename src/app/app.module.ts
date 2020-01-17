@@ -41,7 +41,7 @@ import { HomeComponent } from './home/home.component';
       {path: 'archive', component: ArchiveComponent},
       {path: 'archive/form', component: FormComponent},
       {path: 'archive/github', component: GithubComponent},
-      {path: 'archive/dissaray', component: DisarrayComponent},
+      {path: 'archive/disarray', component: DisarrayComponent},
       {path: 'archive/like', component: LikeComponent},
       {path: 'archive/password', component: PasswordComponent},
     ])

@@ -27,5 +27,6 @@ export class FormComponent {
   }
   onSubmit(f)
   {
+    console.log(f);
   }
 }
