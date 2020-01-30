@@ -1,5 +1,6 @@
 import { Component, Input} from '@angular/core';
 import { NgModule } from '@angular/core';
+import { FlaskService } from '../flask-service.service';
 
 @NgModule({
   declarations:[
@@ -13,12 +14,16 @@ import { NgModule } from '@angular/core';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent {
+  constructor(private service: FlaskService) {
+  }
+  flasks: any[];
+  error: any[];
   numbers = 
   [
     {id: 1, name:'One'},
-    {id: 1, name:'Two'},
-    {id: 1, name:'Three'},
-    {id: 1, name:'Four'},
+    {id: 2, name:'Two'},
+    {id: 3, name:'Three'},
+    {id: 4, name:'Four'},
   ]
 
   log(e)
@@ -27,6 +32,16 @@ export class FormComponent {
   }
   onSubmit(f)
   {
-    console.log(f);
+    console.log(f)
+    this.service.create(f)
+    .subscribe(flasks => 
+      {
+        
+        this.flasks = flasks
+      }, error =>
+      {
+        this.error = error;
+      });
+      console.log(this.flasks)
   }
 }

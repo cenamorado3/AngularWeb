@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PasswordValidators } from '../common/validators/passworld-validator';
+import { FlaskService } from '../flask-service.service';
 
 @Component
 ({
@@ -10,7 +11,7 @@ import { PasswordValidators } from '../common/validators/passworld-validator';
 })
 export class PasswordComponent{
   form: FormGroup;
-  constructor(fb: FormBuilder) 
+  constructor(fb: FormBuilder, private service: FlaskService) 
   {
     this.form = fb.group({
       oldPassword: ['', 
@@ -25,6 +26,9 @@ export class PasswordComponent{
     });
   }
 
+  flasks: any[];
+  error: any[];
+  
   get oldPassword()
   {
     return this.form.get('oldPassword');
@@ -41,5 +45,14 @@ export class PasswordComponent{
   onSubmit(form)
   {
     console.log(form);
+    this.service.UpdatePassword(form)
+    .subscribe(flasks => 
+      {
+        this.flasks = flasks
+      }, error =>
+      {
+        this.error = error;
+      });
+      console.log(this.flasks)
   }
 }
