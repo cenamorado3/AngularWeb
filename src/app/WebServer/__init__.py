@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask import jsonify
 import json
 from flask import request
+from AngularWeb.src.app.WebServer import SqlServerConnector
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/": {"origins": "*"}})
@@ -18,11 +19,28 @@ cors = CORS(app, resources={r"/": {"origins": "*"}})
 
 @app.route("/")
 def home():
-    return '[{"message": "hello"},{"message": "world"}]'
+        sqc = SqlServerConnector.PyDBCConnector()
+        sqc.connect()
+        results = sqc.Read('SELECT *FROM [Website].[dbo].[User]')
+        #results.Read('SELECT * FROM [dbo].[User]')
+        response = ''
+        for result in results:
+                response += '[{"user_name":' + '"' + result.user_name + '"' + '},{"password":'+ '"' + result.password + '"' + '}]'
+        return json.dumps(response)
 
 @app.route("/archive/password", methods=['PUT'])
 def ChangePassword():
-        return '[{"oldPassword": "GET FROM REQUEST"},{"newPassword": "GET FROM REQUEST"},{"validated": "ADD VALIDATION"}]'
+        try:
+                payload = json.loads(request.data)
+                sqc = SqlServerConnector.PyDBCConnector()
+                sqc.connect()
+                sqc.UpdatePassword('UPDATE [dbo].[User] SET password = ' + "'" + payload['confirmPassword'] + "'" + ' WHERE [user_name] = ' + "'" + 'TEST' + "'" + ' AND  password = ' + "'" + 'TESTPASSWORD' + "'")
+                 #update validator to handle persistent passwords and use that data here - encrypt or leverage JWT...
+                return json.dumps('{"PasswordChanged": true}')
+        except Exception:
+                print('EXCEPTION')
+                return json.dumps('{"PasswordChanged": false}')
+
 
 
 @app.route("/archive/form", methods=['POST'])

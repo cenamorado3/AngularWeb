@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PasswordValidators } from '../common/validators/passworld-validator';
 import { FlaskService } from '../flask-service.service';
+import { stringify } from 'querystring';
 
 @Component
 ({
@@ -26,8 +27,8 @@ export class PasswordComponent{
     });
   }
 
-  flasks: any[];
-  error: any[];
+  flasks: any;
+  error: any;
   
   get oldPassword()
   {
@@ -49,10 +50,13 @@ export class PasswordComponent{
     .subscribe(flasks => 
       {
         this.flasks = flasks
+        
       }, error =>
       {
         this.error = error;
       });
-      console.log(this.flasks)
+      console.log(this.flasks);
+      var r = JSON.parse(this.flasks);
+      alert(r['PasswordChanged']);
   }
 }
