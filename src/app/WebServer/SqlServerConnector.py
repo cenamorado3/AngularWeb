@@ -10,7 +10,7 @@ class PyDBCConnector:
         username = 'ANGULAR' 
         password = 'ANGULAR' 
         connection = pyodbc.connect('DRIVER={SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-        return connection.cursor()
+        return connection
 
 
     # def Create(string: query):
@@ -19,11 +19,13 @@ class PyDBCConnector:
     #     cursor.commit
 
     def Read(self, query: str) -> List[User]:
-        cursor = self.connect()
+        connection = self.connect()
+        cursor = connection.cursor()
         cursor.execute(query)
         users = []
         for row in cursor:
             users.append(User(row.user_name, row.password))
+        cursor.close()
         return users
 
 
@@ -32,13 +34,25 @@ class PyDBCConnector:
     #     cursor.execute(query)
     #     cursor.commit
     def UpdatePassword(self, query: str):
-        cursor = self.connect()
+        connection = self.connect()
+        cursor = connection.cursor()
         cursor.execute(query)
         cursor.commit()
+        cursor.close()
 
+
+
+    def ValidatePassword(self, query: str) -> List[User]:
+        connection = self.connect()
+        cursor = connection.cursor()
+        cursor.execute(query)
+        users = []
+        for row in cursor:
+            users.append(User(row.user_name, row.password))
+        cursor.close()
+        return users
     # def Delete(string: query):
     #     cursor.execute(query)
     #     conn.commit()
-
 
     # DEF SPECIFIC FUNCTIONS AND QUERIES BELOW

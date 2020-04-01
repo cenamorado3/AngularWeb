@@ -1,0 +1,21 @@
+<div class="inventory-item"(click)="toggle()">
+    <div class="content">
+        {{title}}
+        <img [src]=imageSrc>
+    </div>
+    <div [class.selected]='isSelected'>
+        <span class="glyphicon"
+            [ngClass]=
+            "
+                {
+                    'glyphicon glyphicon-minus': isSelected,
+                    'glyphicon glyphicon-plus': !isSelected
+                }
+            "
+        >
+        </span>
+        <div *ngIf='isSelected' class="body">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

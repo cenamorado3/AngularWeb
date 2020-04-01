@@ -14,7 +14,7 @@
             <option value=""></option>
             <option *ngFor="let n of numbers" [value]="n.name">{{n.name}}</option>
         </select>
-        <div *ngIf='dropDown.touched && dropDown.invalid' class="alert alert-danger">This shit is required</div>
+        <div *ngIf='dropDown.touched && dropDown.invalid' class="alert alert-danger">This field is required</div>
     </div>
 
     <div class="checkbox">

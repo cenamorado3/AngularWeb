@@ -16,6 +16,7 @@ import { RestService } from './rest.service';
 import { ArchiveComponent } from './archive/archive.component';
 import { NavigateToArchiveComponent } from './navigate-to-archive/navigate-to-archive.component';
 import { HomeComponent } from './home/home.component';
+import { InventoryComponent } from './inventory/inventory.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { HomeComponent } from './home/home.component';
     ArchiveComponent,
     NavigateToArchiveComponent,
     HomeComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,7 @@ import { HomeComponent } from './home/home.component';
       {path: 'archive/disarray', component: DisarrayComponent},
       {path: 'archive/like', component: LikeComponent},
       {path: 'archive/password', component: PasswordComponent},
+      {path: 'archive/product', component: InventoryComponent},
     ])
   ],
   providers: [GithubFollowersService],

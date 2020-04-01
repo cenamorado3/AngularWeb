@@ -1,12 +1,18 @@
 import {AbstractControl} from '@angular/forms'
+import { FlaskService } from '../../flask-service.service';
 
 export class PasswordValidators
 {
+    static service: any;
+    static flasks: any;
+    static error: any;
     static validOldPassword(control: AbstractControl)
     {
         return new Promise((resolve) =>
         {
-            if(control.value !== '1234')
+            // let password = this.GetPassword()
+            // console.log(password);
+            if(control.value !== '2')
             {
                 resolve({invalidOldPassword: true});
             }
@@ -16,7 +22,6 @@ export class PasswordValidators
             }
         });
     }
-
     static passwordsMatch(control: AbstractControl)
     {
         let newPassword = control.get('newPassword');
@@ -27,6 +32,19 @@ export class PasswordValidators
         }
 
         return null;
+    }
+
+    static GetPassword()
+    {
+        this.service.GetPassword()
+        .subscribe(flasks => 
+          {
+            this.flasks = flasks;
+          }, error =>
+          {
+            this.error = error;
+          });
+        return this.flasks;
     }
 }
 

@@ -21,8 +21,7 @@ cors = CORS(app, resources={r"/": {"origins": "*"}})
 def home():
         sqc = SqlServerConnector.PyDBCConnector()
         sqc.connect()
-        results = sqc.Read('SELECT *FROM [Website].[dbo].[User]')
-        #results.Read('SELECT * FROM [dbo].[User]')
+        results = sqc.Read('SELECT * FROM [Website].[dbo].[User]')
         response = ''
         for result in results:
                 response += '[{"user_name":' + '"' + result.user_name + '"' + '},{"password":'+ '"' + result.password + '"' + '}]'
@@ -46,3 +45,14 @@ def ChangePassword():
 @app.route("/archive/form", methods=['POST'])
 def POSTForm():
         return '[{"ServerResponded": "True"},{"Name": "GET FROM REQUEST"},{"Number": "GET FROM REQUEST"},{"validated": "GET FROM REQUEST"}]'
+
+
+@app.route("/archive/password", methods=['GET'])
+def GetUserPass():
+        sqc = SqlServerConnector.PyDBCConnector()
+        sqc.connect()
+        results = sqc.Read('SELECT * FROM [Website].[dbo].[User]')
+        response = ''
+        for result in results:
+                response = result.password
+        return json.dumps('{"Password":' + '"' + response + '"}')

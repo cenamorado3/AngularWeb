@@ -34,7 +34,13 @@ export class RestService {
     return this.http.put(this.url + 'archive/password', resource, {headers: header})
     .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
   }
-
+  GetPassword() {
+    let header = new HttpHeaders({
+      'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/archive/password'
+    });
+    return this.http.get(this.url + 'archive/password', {headers: header})
+    .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
+  }
 
   update(resource) {
     return this.http.patch(this.url + '/' + resource.id, JSON.stringify({ isRead: true }))
