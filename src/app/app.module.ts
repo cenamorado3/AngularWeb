@@ -17,6 +17,7 @@ import { ArchiveComponent } from './archive/archive.component';
 import { NavigateToArchiveComponent } from './navigate-to-archive/navigate-to-archive.component';
 import { HomeComponent } from './home/home.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { InventoryGroupComponent } from './inventory-group/inventory-group.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { InventoryComponent } from './inventory/inventory.component';
     ArchiveComponent,
     NavigateToArchiveComponent,
     HomeComponent,
-    InventoryComponent
+    InventoryComponent,
+    InventoryGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +49,7 @@ import { InventoryComponent } from './inventory/inventory.component';
       {path: 'archive/like', component: LikeComponent},
       {path: 'archive/password', component: PasswordComponent},
       {path: 'archive/product', component: InventoryComponent},
+      {path: 'archive/products', component: InventoryGroupComponent},
     ])
   ],
   providers: [GithubFollowersService],

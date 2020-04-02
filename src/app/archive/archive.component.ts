@@ -15,6 +15,7 @@ export class ArchiveComponent {
     { name: 'Like'},
     { name: 'Password'},
     { name: 'Product'},
+    { name: 'Products'},
   ];
 
   constructor(private router: Router, private route: ActivatedRoute) { }

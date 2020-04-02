@@ -1,0 +1,15 @@
+.invent-grp
+{
+    width: 80%;
+}
+
+.row
+{
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap:5px;
+}
+
+.invent-item
+{
+    padding: 20px;
+}
