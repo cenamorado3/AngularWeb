@@ -1,9 +1,6 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 from datetime import datetime
 from flask_cors import CORS
-from flask import jsonify
-import json
-from flask import request
 from AngularWeb.src.app.WebServer import SqlServerConnector
 
 app = Flask(__name__)
@@ -56,3 +53,25 @@ def GetUserPass():
         for result in results:
                 response = result.password
         return json.dumps('{"Password":' + '"' + response + '"}')
+
+
+
+@app.route("/archive/keyboards", methods=['GET'])
+def GetKeyboardInventory():
+        sqc = SqlServerConnector.PyDBCConnector()
+        sqc.connect()
+        results = sqc.GetProducts('SELECT * FROM [Website].[dbo].[Keyboards]')
+        response = []
+        for result in results:
+                response.append(dict(
+                        ProductID = str(result.ProductID),
+                        ProductName = result.ProductName,
+                        ProductDescription = result.ProductDescription,
+                        ProductPrice = str(result.ProductPrice),
+                        FilePath = result.FilePath
+                )) #'{"ProductID":' + '"' + str(result.ProductID) + '"' + ',"ProductName":'+ '"' + result.ProductName + '"' + ',"ProductDescription":'+ '"' + result.ProductDescription + '"'+ ',"ProductPrice":'+ '"' + str(result.ProductPrice) + '"' + ',"FilePath":'+ '"' + result.FilePath + '"' + '}'
+        return jsonify(response)
+
+
+
+        

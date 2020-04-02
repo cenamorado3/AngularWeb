@@ -1,7 +1,7 @@
 <div class="invent-grp container">
     <div class="row"> 
         <div *ngFor="let item of inventory">
-            <inventory-item title="{{item.name}}" imageSrc="{{item.source}}" class="invent-item col-sm-3">{{item.description + item.name}}</inventory-item>
+            <inventory-item title="{{item.ProductName}}" imageSrc="{{item.FilePath}}" class="invent-item col-sm-3">{{item.ProductDescription + item.ProductName}}</inventory-item>
         </div>
     </div>
 </div>

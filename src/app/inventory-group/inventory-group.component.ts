@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FlaskService } from '../flask-service.service';
 
 @Component({
   selector: 'inventory-group',
@@ -7,22 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InventoryGroupComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: FlaskService) { }
 
-  inventory = 
-[
-    {name: 'Item 1',  source:'http://placehold.jp/350x250.png', description:'This is a description of '},
-    {name: 'Item 2',  source:'http://placehold.jp/350x250.png', description:'This is a description of '},
-    {name: 'Item 3',  source:'http://placehold.jp/350x250.png', description:'This is a description of '},
-    {name: 'Item 4',  source:'http://placehold.jp/350x250.png', description:'This is a description of '},
-    {name: 'Item 5',  source:'http://placehold.jp/350x250.png', description:'This is a description of '},
-    {name: 'Item 6',  source:'http://placehold.jp/350x250.png', description:'This is a description of '},
-    {name: 'Item 7',  source:'http://placehold.jp/350x250.png', description:'This is a description of '},
-    {name: 'Item 8',  source:'http://placehold.jp/350x250.png', description:'This is a description of '},
-    {name: 'Item 9',  source:'http://placehold.jp/350x250.png', description:'This is a description of '},
-    {name: 'Item 10', source:'http://placehold.jp/350x250.png', description:'This is a description of '},
-  ];
+  inventory: any[];
+  error: any[];
   ngOnInit() {
+    this.service.GetKBS()
+      .subscribe(flasks => 
+        {
+          this.inventory = flasks;
+          console.log(this.inventory)
+        }, error =>
+        {
+          this.error = error;
+        });
+
+        console.log(this.inventory)
   }
 
 }

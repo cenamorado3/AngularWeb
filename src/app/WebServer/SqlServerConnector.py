@@ -1,5 +1,6 @@
 import pyodbc
 from AngularWeb.src.app.WebServer.User import User
+from AngularWeb.src.app.WebServer.Products import Products
 from typing import List
 # TEST THIS LATER
 class PyDBCConnector:
@@ -56,3 +57,15 @@ class PyDBCConnector:
     #     conn.commit()
 
     # DEF SPECIFIC FUNCTIONS AND QUERIES BELOW
+
+
+
+    def GetProducts(self, query: str) -> List[Products]:
+        connection = self.connect()
+        cursor = connection.cursor()
+        cursor.execute(query)
+        products = []
+        for row in cursor:
+            products.append(Products(row.ProductID, row.ProductName, row.ProductDescription, row.ProductPrice, row.FilePath))
+        cursor.close()
+        return products

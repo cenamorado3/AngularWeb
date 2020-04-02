@@ -61,4 +61,13 @@ export class RestService {
     
     return Observable.throw(new AppError(error));
   }
+
+
+  GetKBS() {
+    let header = new HttpHeaders({
+      'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/archive/keyboards'
+    });
+    return this.http.get(this.url + 'archive/keyboards', {headers: header})
+    .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
+  }
 }
