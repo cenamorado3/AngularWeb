@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import json
 from datetime import datetime
 from flask_cors import CORS
 from AngularWeb.src.app.WebServer import SqlServerConnector
@@ -69,7 +70,7 @@ def GetKeyboardInventory():
                         ProductDescription = result.ProductDescription,
                         ProductPrice = str(result.ProductPrice),
                         FilePath = result.FilePath
-                )) #'{"ProductID":' + '"' + str(result.ProductID) + '"' + ',"ProductName":'+ '"' + result.ProductName + '"' + ',"ProductDescription":'+ '"' + result.ProductDescription + '"'+ ',"ProductPrice":'+ '"' + str(result.ProductPrice) + '"' + ',"FilePath":'+ '"' + result.FilePath + '"' + '}'
+                ))
         return jsonify(response)
 
 

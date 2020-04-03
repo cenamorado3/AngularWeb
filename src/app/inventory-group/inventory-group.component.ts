@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Input } from '@angular/core';
 import { FlaskService } from '../flask-service.service';
 
 @Component({
@@ -8,7 +7,7 @@ import { FlaskService } from '../flask-service.service';
   styleUrls: ['./inventory-group.component.css']
 })
 export class InventoryGroupComponent implements OnInit {
-
+  @Input('imageSrc') imageSrc: string;
   constructor(private service: FlaskService) { }
 
   inventory: any[];
@@ -23,8 +22,5 @@ export class InventoryGroupComponent implements OnInit {
         {
           this.error = error;
         });
-
-        console.log(this.inventory)
   }
-
 }

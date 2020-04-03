@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryGroupComponent } from '../inventory-group/inventory-group.component';
-import { HttpClient } from '@angular/common/http';
-import { inherits } from 'util';
 import { FlaskService } from '../flask-service.service';
 
 @Component({
