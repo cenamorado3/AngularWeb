@@ -21,29 +21,14 @@ export class RestService {
 
   create(resource) {
     let header = new HttpHeaders({
-      'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/archive/form'
+      'Access-Control-Allow-Origin': this.url
     });
-    return this.http.post(this.url + 'archive/form', resource, {headers: header})
+    return this.http.post(this.url, resource, {headers: header})
     .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
   }
 
-  UpdatePassword(resource) {
-    let header = new HttpHeaders({
-      'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/archive/password'
-    });
-    return this.http.put(this.url + 'archive/password', resource, {headers: header})
-    .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
-  }
-  GetPassword() {
-    let header = new HttpHeaders({
-      'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/archive/password'
-    });
-    return this.http.get(this.url + 'archive/password', {headers: header})
-    .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
-  }
-
-  update(resource) {
-    return this.http.patch(this.url + '/' + resource.id, JSON.stringify({ isRead: true }))
+  update(id) {
+    return this.http.patch(this.url + '/' + id, JSON.stringify({ isRead: true }))
     .pipe(map((response: any) => response), catchError((response:Response) => this.handleError(response)));
   }
 
@@ -62,12 +47,19 @@ export class RestService {
     return Observable.throw(new AppError(error));
   }
 
-
-  GetKBS() {
+  UpdatePassword(resource) {
     let header = new HttpHeaders({
-      'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/archive/keyboards'
+      'Access-Control-Allow-Origin': 'http://127.0.0.1:5000'
     });
-    return this.http.get(this.url + 'archive/keyboards', {headers: header})
+    return this.http.put(this.url + 'archive/password', resource, {headers: header})
     .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
   }
+  GetPassword() {
+    let header = new HttpHeaders({
+      'Access-Control-Allow-Origin': 'http://127.0.0.1:5000'
+    });
+    return this.http.get(this.url + 'archive/password', {headers: header})
+    .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
+  }
+
 }

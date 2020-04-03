@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FlaskService } from '../flask-service.service';
+import { ProductService } from '../product-service.service';
 
 @Component({
   selector: 'inventory-group',
@@ -8,16 +8,20 @@ import { FlaskService } from '../flask-service.service';
 })
 export class InventoryGroupComponent implements OnInit {
   @Input('imageSrc') imageSrc: string;
-  constructor(private service: FlaskService) { }
+  constructor(private service: ProductService) { }
+
+  placeholder = [
+    
+  ]
+
 
   inventory: any[];
   error: any[];
   ngOnInit() {
-    this.service.GetKBS()
+    this.service.getAll()
       .subscribe(flasks => 
         {
           this.inventory = flasks;
-          console.log(this.inventory)
         }, error =>
         {
           this.error = error;

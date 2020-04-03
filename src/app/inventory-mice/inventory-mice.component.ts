@@ -1,15 +1,15 @@
 import { Component} from '@angular/core';
 import { InventoryGroupComponent } from '../inventory-group/inventory-group.component';
-import { ProductService } from '../product-service.service';
+import { MiceService } from '../mice-service.service';
 
 @Component({
-  selector: 'inventory-keyboards',
+  selector: 'inventory-mice',
   templateUrl: '../inventory-group/inventory-group.component.html',
   styleUrls: ['../inventory-group/inventory-group.component.css']
 })
-export class InventoryKeyboardsComponent extends InventoryGroupComponent {
+export class InventoryMiceComponent extends InventoryGroupComponent {
 
-  constructor(service: ProductService) {
+  constructor(service: MiceService) {
     super(service)
    }
 }

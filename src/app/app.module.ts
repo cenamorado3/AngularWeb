@@ -19,6 +19,7 @@ import { HomeComponent } from './home/home.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { InventoryGroupComponent } from './inventory-group/inventory-group.component';
 import { InventoryKeyboardsComponent } from './inventory-keyboards/inventory-keyboards.component';
+import { InventoryMiceComponent } from './inventory-mice/inventory-mice.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { InventoryKeyboardsComponent } from './inventory-keyboards/inventory-key
     HomeComponent,
     InventoryComponent,
     InventoryGroupComponent,
-    InventoryKeyboardsComponent
+    InventoryKeyboardsComponent,
+    InventoryMiceComponent
   ],
   imports: [
     BrowserModule,
@@ -51,8 +53,8 @@ import { InventoryKeyboardsComponent } from './inventory-keyboards/inventory-key
       {path: 'archive/like', component: LikeComponent},
       {path: 'archive/password', component: PasswordComponent},
       {path: 'archive/product', component: InventoryComponent},
-      {path: 'archive/products', component: InventoryGroupComponent},
       {path: 'archive/keyboards', component: InventoryKeyboardsComponent},
+      {path: 'archive/mice', component: InventoryMiceComponent},
     ])
   ],
   providers: [GithubFollowersService],

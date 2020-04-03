@@ -1,6 +1,5 @@
 import { GithubFollowersService } from '../github-service.service';
 import { Component, OnInit } from '@angular/core';
-import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'github',
