@@ -12,7 +12,6 @@ import { FormComponent } from './form/form.component';
 import { PasswordComponent } from './password/password.component';
 import { GithubComponent } from './github/github.component';
 import { GithubFollowersService } from './github-service.service';
-import { RestService } from './rest.service';
 import { ArchiveComponent } from './archive/archive.component';
 import { NavigateToArchiveComponent } from './navigate-to-archive/navigate-to-archive.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +19,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { InventoryGroupComponent } from './inventory-group/inventory-group.component';
 import { InventoryKeyboardsComponent } from './inventory-keyboards/inventory-keyboards.component';
 import { InventoryMiceComponent } from './inventory-mice/inventory-mice.component';
+import { InventoryAdminModalComponent } from './inventory-admin-modal/inventory-admin-modal.component';
 
 
 @NgModule({
@@ -36,7 +36,8 @@ import { InventoryMiceComponent } from './inventory-mice/inventory-mice.componen
     InventoryComponent,
     InventoryGroupComponent,
     InventoryKeyboardsComponent,
-    InventoryMiceComponent
+    InventoryMiceComponent,
+    InventoryAdminModalComponent
   ],
   imports: [
     BrowserModule,

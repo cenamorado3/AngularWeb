@@ -1,0 +1,28 @@
+<button id="admin-panel-button" (click)="openDialog()">Admin Panel</button>
+
+<div id="admin-panel-modal-lock">
+  <div id="admin-panel-modal" class="admin-panel-modal">
+    <div class="admin-panel-modal-body">
+        <span class="glyphicon glyphicon-remove" (click)="close()"></span>
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+          <h3>Admin Control Panel</h3>
+          <div class="radio row form-group">
+            <div class="col-sm-3 radio-btn">
+              <input type="radio" value="Create" formControlName="formType">Create
+            </div>
+            <div class="col-sm-3 radio-btn">
+              <input type="radio" value="Update" formControlName="formType">Update
+            </div>
+            <div class="col-sm-3 radio-btn">
+              <input type="radio" value="Delete" formControlName="formType">Delete
+            </div>
+          </div>
+
+          <div class="pid-delete form-group">
+            <input type="text" value="PID" formControlName="PID">Product ID to Delete
+          </div>
+          <p> {{form.value | json}}
+        </form>
+    </div>
+  </div>
+  </div>

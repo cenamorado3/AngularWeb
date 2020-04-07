@@ -8,6 +8,6 @@ import { Injectable } from '@angular/core';
 export class FlaskService extends RestService{
 
   constructor(http: HttpClient) {
-    super('http://127.0.0.1:5000/', http);
+    super('http:\\127.0.0.1:5000/', http);
   }
 }

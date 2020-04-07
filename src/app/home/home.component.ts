@@ -22,6 +22,6 @@ export class HomeComponent implements OnInit {
         {
           this.error = error;
         });
+        console.log(this.flasks);
   }
-
 }

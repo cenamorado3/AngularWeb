@@ -1,0 +1,83 @@
+.admin-panel-modal-lock
+{
+    width:100%;
+    height:100%;
+    top:0;
+    padding: 0;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.856);
+    position: fixed;
+    z-index:100;
+}
+
+.admin-panel-modal
+{
+    display: none; /* Hidden by default */
+}
+
+
+.admin-panel-modal-open
+{
+    display: block;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 25%;
+    top: 25%;
+    width: 50%; /* Full width */
+    height: 50%; /* Full height */
+    background-color: white; /* Fallback color */
+    color: black;
+}
+
+.glyphicon-remove
+{
+    color: red;
+    position: absolute;
+    left: 92%;
+    top: 5px;
+    font-size: 20px;
+    padding:20px;
+    cursor: pointer;
+}
+
+.radio
+{
+    position: center;
+    width: 75%;
+    left:13%;
+    top: 20px;
+}
+
+.radio-btn
+{
+    position: relative;
+    left: 20%;
+    vertical-align: bottom;
+}
+input[type="radio"]
+{
+    margin-top: 30px;
+    margin-left: 15px;
+    vertical-align: middle;
+}
+
+h3
+{
+    text-align: center;
+}
+
+label
+{
+    vertical-align: top;
+}
+
+.pid-delete
+{
+    position: absolute;
+    bottom: 20px;
+    left: 100px;
+}
+p{
+    position: absolute;
+    bottom: 0;
+}
