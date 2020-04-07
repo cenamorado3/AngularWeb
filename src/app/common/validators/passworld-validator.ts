@@ -10,8 +10,6 @@ export class PasswordValidators
     {
         return new Promise((resolve) =>
         {
-            // let password = this.GetPassword()
-            // console.log(password);
             if(control.value !== '2')
             {
                 resolve({invalidOldPassword: true});
@@ -26,7 +24,7 @@ export class PasswordValidators
     {
         let newPassword = control.get('newPassword');
         let confirmPassword = control.get('confirmPassword');
-        if(newPassword.value !== confirmPassword.value)
+        if(newPassword.value === confirmPassword.value)
         {
             return {passwordsMatch: true};
         }

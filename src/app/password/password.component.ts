@@ -2,7 +2,6 @@ import { Component} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PasswordValidators } from '../common/validators/passworld-validator';
 import { FlaskService } from '../flask-service.service';
-import { stringify } from 'querystring';
 
 @Component
 ({

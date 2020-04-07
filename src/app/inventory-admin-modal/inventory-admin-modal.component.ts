@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AdminPanelValidator } from '../common/validators/admin-panel-validator';
 
 @Component({
   selector: 'inventory-admin-modal',
@@ -10,7 +11,17 @@ export class InventoryAdminModalComponent{
   form: FormGroup;
   constructor(fb: FormBuilder) { 
     this.form = fb.group({
-      formType: ['', [Validators.required]]
+      formType: ['', 
+      Validators.required,
+      AdminPanelValidator.GetDeleteRadio],
+      PID: ['', Validators.required],
+      ProductName: ['', Validators.required],
+      ProductDescription: ['', Validators.required],
+      ProductPrice: ['', Validators.required],
+      FilePath: ['', Validators.required],
+
+    },
+    {
     });
   }
 
@@ -32,4 +43,30 @@ export class InventoryAdminModalComponent{
   {
     return this.form.get('formType');
   }
+
+  get PID()
+  {
+    return this.form.get('PID');
+  }
+  get ProductName()
+  {
+    return this.form.get('ProductName');
+  }
+
+  get ProductDescription()
+  {
+    return this.form.get('ProductDescription');
+  }
+
+  get ProductPrice()
+  {
+    return this.form.get('ProductPrice');
+  }
+
+  get FilePath()
+  {
+    return this.form.get('FilePath');
+  }
+
+
 }
