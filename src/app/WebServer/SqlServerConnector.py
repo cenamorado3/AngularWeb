@@ -9,7 +9,7 @@ class PyDBCConnector:
         server = 'CHRIS\SQLEXPRESS' 
         database = 'Website' 
         username = 'ANGULAR' 
-        password = 'ANGULAR' 
+        password = 'ANGULAR2' 
         connection = pyodbc.connect('DRIVER={SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
         return connection
 
@@ -27,6 +27,7 @@ class PyDBCConnector:
         for row in cursor:
             users.append(User(row.user_name, row.password))
         cursor.close()
+        connection.close()
         return users
 
 
@@ -39,7 +40,7 @@ class PyDBCConnector:
         cursor = connection.cursor()
         cursor.execute(query)
         cursor.commit()
-        cursor.close()
+        self.CloseAll(cursor, connection)
 
 
 
@@ -50,14 +51,16 @@ class PyDBCConnector:
         users = []
         for row in cursor:
             users.append(User(row.user_name, row.password))
-        cursor.close()
+        self.CloseAll(cursor, connection)
         return users
-    # def Delete(string: query):
-    #     cursor.execute(query)
-    #     conn.commit()
 
-    # DEF SPECIFIC FUNCTIONS AND QUERIES BELOW
 
+
+    def Delete(self, query: str):
+        connection = self.cursor.execute(query)
+        cursor = connection.cursor()
+        cursor.execute(query)
+        self.CloseAll(cursor, connection)
 
 
     def GetProducts(self, query: str) -> List[Products]:
@@ -67,5 +70,14 @@ class PyDBCConnector:
         products = []
         for row in cursor:
             products.append(Products(row.ProductID, row.ProductName, row.ProductDescription, row.ProductPrice, row.FilePath))
-        cursor.close()
+        self.CloseAll(cursor, connection)
         return products
+
+
+
+
+
+
+    def CloseAll(self, cursor, connection):
+        cursor.close()
+        connection.close()

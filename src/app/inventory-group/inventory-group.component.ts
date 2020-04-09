@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from '../product-service.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'inventory-group',
@@ -10,11 +9,6 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class InventoryGroupComponent implements OnInit {
   @Input('imageSrc') imageSrc: string;
   constructor(private service: ProductService) { }
-
-  placeholder = [
-    
-  ]
-
 
   inventory: any[];
   error: any[];

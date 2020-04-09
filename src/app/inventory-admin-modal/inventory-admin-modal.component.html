@@ -4,22 +4,24 @@
   <div id="admin-panel-modal" class="admin-panel-modal">
     <div class="admin-panel-modal-body">
         <span class="glyphicon glyphicon-remove" (click)="close()"></span>
-        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
           <h3>Admin Control Panel</h3>
+
+
           <div class="radio row form-group">
-            <div class="col-sm-3 radio-btn form-check">
-              <input type="radio" value="Create" formControlName="formType">Create
+            <div class="col-sm-3 radio-btn">
+              <input (click)="EnableControls()"type="radio" value="Create" formControlName="formType">Create
             </div>
-            <div class="col-sm-3 radio-btn form-check">
-              <input type="radio" value="Update" formControlName="formType">Update
+            <div class="col-sm-3 radio-btn">
+              <input (click)="EnableControls()"type="radio" value="Update" formControlName="formType">Update
             </div>
-            <div class="col-sm-3 radio-btn form-check">
-              <input type="radio" value="Delete" formControlName="formType">Delete
+            <div class="col-sm-3 radio-btn">
+              <input  (click)="DisableControlsForDelete()" type="radio" value="Delete" formControlName="formType">Delete
             </div>
           </div>
 
 
-          <div *ngIf="CurrentType.errors.Create" class="admin-form form-group">
+          <div *ngIf="CurrentType.value==='Create'" class="admin-form form-group">
             <div class="admin-control">
               <input type="text" value="PID" formControlName="PID" placeholder="Product ID to create">
             </div>
@@ -37,7 +39,7 @@
             </div>
           </div>
 
-          <div *ngIf="CurrentType.errors.Update" class="admin-form form-group">
+          <div *ngIf="CurrentType.value==='Update'" class="admin-form form-group">
             <div class="admin-control">
               <input type="text" value="PID" formControlName="PID" placeholder="Product ID to update">
             </div>
@@ -57,18 +59,15 @@
 
 
 
-          <div *ngIf="CurrentType.errors.Delete" class="admin-form form-group">
+          <div *ngIf="CurrentType.value==='Delete'" class="admin-form form-group">
             <div class="admin-control">
-              <input type="text" value="PID" formControlName="PID" placeholder="Product ID to Delete">
+              <input  type="text" value="PID" formControlName="PID" placeholder="Product ID to Delete">
             </div>
           </div>
         
-        <div class="submit-btn" *ngIf="CurrentType.errors.Create || CurrentType.errors.Update || CurrentType.errors.Delete">
+        <div class="submit-btn" *ngIf="CurrentType.value==='Create' || CurrentType.value==='Update' || CurrentType.value==='Delete'">
           <button class="btn btn-primary" [disabled]="form.invalid">Submit</button>
         </div>
-          <div class="abc">
-            <p> {{form.value | json}}
-          </div>
         </form>
     </div>
   </div>

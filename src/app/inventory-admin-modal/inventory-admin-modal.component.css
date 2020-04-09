@@ -27,7 +27,7 @@
     height: 50%; 
     background-color: white;
     color: black;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .glyphicon-remove
@@ -54,6 +54,7 @@
     position: relative;
     left: 20%;
     vertical-align: bottom;
+    padding-bottom: 20px;
 }
 
 
@@ -82,9 +83,10 @@
 
 .submit-btn
 {
-  position: relative;  
+  position: relative; 
   left: 45%;
-  top: 10px;
+  bottom: 40px;
+  display: inline;
 }
 
 
@@ -110,11 +112,4 @@ h3
 label
 {
     vertical-align: top;
-}
-
-.abc
-{
-    position: absolute;
-    bottom: 0;
-    left: 0;
 }

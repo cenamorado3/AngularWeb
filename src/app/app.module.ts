@@ -21,6 +21,10 @@ import { InventoryKeyboardsComponent } from './inventory-keyboards/inventory-key
 import { InventoryMiceComponent } from './inventory-mice/inventory-mice.component';
 import { InventoryAdminModalComponent } from './inventory-admin-modal/inventory-admin-modal.component';
 
+import { RestService } from './rest.service';
+import { MiceService } from './mice-service.service';
+import { ProductService } from './product-service.service';
+
 
 @NgModule({
   declarations: [
@@ -58,7 +62,7 @@ import { InventoryAdminModalComponent } from './inventory-admin-modal/inventory-
       {path: 'archive/mice', component: InventoryMiceComponent},
     ])
   ],
-  providers: [GithubFollowersService],
+  providers: [GithubFollowersService, RestService, MiceService, ProductService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -10,8 +10,13 @@ import { Observable } from 'rxjs';
 // import 'rxjs/add/observable/throw';
 import { map, catchError} from 'rxjs/operators';
 
+
+
+// export interface IRestService{
+//   delete(id: string)
+// }
 @Injectable()
-export class RestService {
+export class RestService implements RestService{
   constructor(private url: string, private http: HttpClient) { }
 
   getAll() {
@@ -32,9 +37,16 @@ export class RestService {
     .pipe(map((response: any) => response), catchError((response:Response) => this.handleError(response)));
   }
 
-  delete(id) {
-    return this.http.delete(this.url + '/' + id)
-    .pipe(map((response: any) => response, catchError((response:Response) => this.handleError(response))));
+  delete(id, payload) {
+        // console.log(Observable.apply(payload));
+    // let a = JSON.stringify(payload);
+    // let options =new HttpParams(payload);
+
+    // let header = new HttpHeaders({
+    //     'Access-Control-Request-Method': 'DELETE'
+    // });
+    // //{headers: header, observe:'body', params: options}
+    return this.http.delete(this.url + '/' + id, payload)
   }
 
   private handleError(error: Response) {

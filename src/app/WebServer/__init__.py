@@ -9,6 +9,7 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/archive/*": {"origins": "*"}})
 
 
+#logging.getLogger('flask_cors').level = logging.DEBUG
 #UPDATE ALL REQUEST TO GENERATE PAYLOAD
 #ADD AND TEST MOCK VALIDATION
 #HEADERS
@@ -90,6 +91,16 @@ def GetMiceInventory():
                 ))
         return jsonify(response)
 
+
+
+@app.route("/archive/mice/", methods=['DELETE'])
+def DeleteMouse():
+        sqc = SqlServerConnector.PyDBCConnector()
+        sqc.connect()
+        data = json.loads(request.data)
+        print(data['PID'])
+        #sqc.Delete('DELETE FROM [Website].[dbo].[Mice] WHERE ProductID=' + data[PID])
+        return jsonify({'Response':[1,2,3,4]})
 
 
 
