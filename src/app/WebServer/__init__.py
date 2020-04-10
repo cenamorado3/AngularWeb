@@ -10,10 +10,10 @@ cors = CORS(app, resources={r"/archive/*": {"origins": "*"}})
 
 
 #logging.getLogger('flask_cors').level = logging.DEBUG
-#UPDATE ALL REQUEST TO GENERATE PAYLOAD
-#ADD AND TEST MOCK VALIDATION
-#HEADERS
-#MAKE ASYNC - FIRST REQUEST FAILS
+
+
+
+######################          HOME
 
 @app.route("/")
 def home():
@@ -24,6 +24,11 @@ def home():
         for result in results:
                 response += '[{"user_name":' + '"' + result.user_name + '"' + '},{"password":'+ '"' + result.password + '"' + '}]'
         return json.dumps(response)
+
+
+
+
+######################          USER SERVICE
 
 @app.route("/archive/password", methods=['PUT'])
 def ChangePassword():
@@ -55,6 +60,7 @@ def GetUserPass():
                 response = result.password
         return json.dumps('{"Password":' + '"' + response + '"}')
 
+######################          KEYBOARD
 
 
 @app.route("/archive/keyboards", methods=['GET'])
@@ -73,7 +79,7 @@ def GetKeyboardInventory():
                 ))
         return jsonify(response)
 
-
+######################          MICE
 
 @app.route("/archive/mice", methods=['GET'])
 def GetMiceInventory():
@@ -93,14 +99,32 @@ def GetMiceInventory():
 
 
 
-@app.route("/archive/mice/", methods=['DELETE'])
-def DeleteMouse():
+
+
+
+
+
+######################        ADMIN
+@app.route("/archive/mice/<string:PID>", methods=['DELETE'])
+def DeleteMouse(PID):
         sqc = SqlServerConnector.PyDBCConnector()
         sqc.connect()
-        data = json.loads(request.data)
-        print(data['PID'])
-        #sqc.Delete('DELETE FROM [Website].[dbo].[Mice] WHERE ProductID=' + data[PID])
-        return jsonify({'Response':[1,2,3,4]})
+        result =sqc.Delete(str.format('DELETE FROM [Website].[dbo].[Mice] WHERE ProductID={0}', PID))
+        if result == True:
+                return jsonify({'Response':'Record was succesfully deleted'})
+        else:
+                return jsonify({'Response':'Record failed to delete or does not exist'})
+
+
+@app.route("/archive/keyboards/<string:PID>", methods=['DELETE'])
+def DeleteKeyboard(PID):
+        sqc = SqlServerConnector.PyDBCConnector()
+        sqc.connect()
+        result =sqc.Delete(str.format('DELETE FROM [Website].[dbo].[Keyboards] WHERE ProductID={0}', PID))
+        if result == True:
+                return jsonify({'Response':'Record was succesfully deleted'})
+        else:
+                return jsonify({'Response':'Record failed to delete or does not exist'})
 
 
 

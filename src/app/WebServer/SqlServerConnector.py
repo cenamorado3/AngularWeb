@@ -2,10 +2,9 @@ import pyodbc
 from AngularWeb.src.app.WebServer.User import User
 from AngularWeb.src.app.WebServer.Products import Products
 from typing import List
-# TEST THIS LATER
 class PyDBCConnector:
     def connect(self):
-        #redirect this to database
+        #redirect this to you database
         server = 'CHRIS\SQLEXPRESS' 
         database = 'Website' 
         username = 'ANGULAR' 
@@ -40,7 +39,7 @@ class PyDBCConnector:
         cursor = connection.cursor()
         cursor.execute(query)
         cursor.commit()
-        self.CloseAll(cursor, connection)
+        self.CloseConnection(cursor, connection)
 
 
 
@@ -51,16 +50,21 @@ class PyDBCConnector:
         users = []
         for row in cursor:
             users.append(User(row.user_name, row.password))
-        self.CloseAll(cursor, connection)
+        self.CloseConnection(cursor, connection)
         return users
 
 
 
     def Delete(self, query: str):
-        connection = self.cursor.execute(query)
+        connection = self.connect()
         cursor = connection.cursor()
-        cursor.execute(query)
-        self.CloseAll(cursor, connection)
+        rowsdeleted = cursor.execute(query).rowcount
+        if rowsdeleted == 1:
+            cursor.commit()
+            self.CloseConnection(cursor, connection)
+            return True
+        else:
+            return False
 
 
     def GetProducts(self, query: str) -> List[Products]:
@@ -70,7 +74,7 @@ class PyDBCConnector:
         products = []
         for row in cursor:
             products.append(Products(row.ProductID, row.ProductName, row.ProductDescription, row.ProductPrice, row.FilePath))
-        self.CloseAll(cursor, connection)
+        self.CloseConnection(cursor, connection)
         return products
 
 
@@ -78,6 +82,6 @@ class PyDBCConnector:
 
 
 
-    def CloseAll(self, cursor, connection):
+    def CloseConnection(self, cursor, connection):
         cursor.close()
         connection.close()

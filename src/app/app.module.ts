@@ -24,6 +24,7 @@ import { InventoryAdminModalComponent } from './inventory-admin-modal/inventory-
 import { RestService } from './rest.service';
 import { MiceService } from './mice-service.service';
 import { ProductService } from './product-service.service';
+import { AdminPanelService } from './admin-panel-service.service';
 
 
 @NgModule({
@@ -62,7 +63,7 @@ import { ProductService } from './product-service.service';
       {path: 'archive/mice', component: InventoryMiceComponent},
     ])
   ],
-  providers: [GithubFollowersService, RestService, MiceService, ProductService],
+  //providers: [GithubFollowersService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

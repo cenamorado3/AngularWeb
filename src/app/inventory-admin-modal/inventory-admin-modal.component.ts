@@ -1,18 +1,24 @@
-import { Component} from '@angular/core';
+import { Component, Injectable, Input, NgModule} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminPanelValidator } from '../common/validators/admin-panel-validator';
 import {MiceService} from "../mice-service.service";
 import { HttpClient } from '@angular/common/http';
-import { RestService } from '../rest.service';
-
+import { IRestService, RestService } from '../rest.service';
+import { ProductService } from '../product-service.service';
+import { AdminPanelService } from '../admin-panel-service.service';
 @Component({
   selector: 'inventory-admin-modal',
   templateUrl: './inventory-admin-modal.component.html',
   styleUrls: ['./inventory-admin-modal.component.css']
+  //providers:[ProductService, MiceService, AdminPanelService, RestService, ]
+})
+
+@NgModule({
+  providers:[ProductService, MiceService, AdminPanelService, RestService, ]
 })
 export class InventoryAdminModalComponent{
   form: FormGroup;
-  constructor(fb: FormBuilder, private service: MiceService) { 
+  constructor(fb: FormBuilder, private pservice: ProductService, private mservice: MiceService) { 
     //super('http://127.0.0.1:5000/archive/admin', http)
 
     this.form = fb.group({
@@ -23,8 +29,6 @@ export class InventoryAdminModalComponent{
       ProductPrice: ['', Validators.required],
       FilePath: ['', Validators.required],
     });
-
-    
   }
 
   openDialog()
@@ -63,7 +67,7 @@ export class InventoryAdminModalComponent{
   {
     if(form.value['formType'] === 'Create')
     {
-        alert('FAILURE: THIS FEATURE IS NOT YET IMPLEMENTED');
+      alert('FAILURE: THIS FEATURE IS NOT YET IMPLEMENTED');
     }
 
     if(form.value['formType'] === 'Update')
@@ -73,7 +77,26 @@ export class InventoryAdminModalComponent{
 
     if(form.value['formType'] === 'Delete')
     {
-      this.service.delete(form.value['PID'], form.value).subscribe();
+      if(window.location.href.includes('keyboards'))
+      {
+        this.pservice.delete(form.value['PID'], form.value).subscribe(msg =>
+          {
+            alert(msg['Response']);
+          });
+      }
+
+      if(window.location.href.includes('mice'))
+      {
+        this.mservice.delete(form.value['PID'], form.value).subscribe(msg =>
+          {
+            alert(msg['Response']);
+          });
+      }
+
+      else
+      {
+        alert('You must be at a valid location to delete items.')
+      }
     }
   }
 

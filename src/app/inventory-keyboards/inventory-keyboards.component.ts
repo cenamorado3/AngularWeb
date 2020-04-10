@@ -7,7 +7,7 @@ import { ProductService } from '../product-service.service';
   templateUrl: '../inventory-group/inventory-group.component.html',
   styleUrls: ['../inventory-group/inventory-group.component.css']
 })
-export class InventoryKeyboardsComponent extends InventoryGroupComponent {
+export class InventoryKeyboardsComponent extends InventoryGroupComponent{
 
   constructor(service: ProductService) {
     super(service)
