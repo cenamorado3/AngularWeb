@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, Injectable } from '@angular/core';
+import { Component, OnInit, Input, Injectable, OnDestroy, Output } from '@angular/core';
 import { ProductService } from '../product-service.service';
 import { InventoryAdminModalComponent } from '../inventory-admin-modal/inventory-admin-modal.component';
-import { IRestService } from '../rest.service';
+import { IRestService, RestService } from '../rest.service';
+import { Subscription } from 'rxjs';
 
-@Injectable()
+
 @Component({
   selector: 'inventory-group',
   templateUrl: './inventory-group.component.html',
@@ -11,7 +12,9 @@ import { IRestService } from '../rest.service';
 })
 export class InventoryGroupComponent implements OnInit{
   @Input('imageSrc') imageSrc: string;
-  constructor(private service: ProductService) { }
+  constructor(private service: IRestService) { 
+  }
+  //subscription: Subscription;
   inventory: any[];
   error: any[];
   ngOnInit() {
@@ -24,4 +27,18 @@ export class InventoryGroupComponent implements OnInit{
           this.error = error;
         });
   }
+
+  del(id, payload): any
+  {
+    this.service.delete(id, payload).subscribe(msg =>
+      {
+        alert(msg['Response']);
+      });
+  }
+
+
+  // ngOnDestroy()
+  // {
+  //   this.subscription.unsubscribe();
+  // }
 }

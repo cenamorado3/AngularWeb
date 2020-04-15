@@ -1,24 +1,26 @@
-import { Component, Injectable, Input, NgModule} from '@angular/core';
+import { Component, Injectable, Input, NgModule, OnInit, OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AdminPanelValidator } from '../common/validators/admin-panel-validator';
 import {MiceService} from "../mice-service.service";
-import { HttpClient } from '@angular/common/http';
 import { IRestService, RestService } from '../rest.service';
 import { ProductService } from '../product-service.service';
 import { AdminPanelService } from '../admin-panel-service.service';
+import { Subscription } from 'rxjs';
+import { ActivatedRouteSnapshot, Router, ActivatedRoute } from '@angular/router';
+import { InventoryGroupComponent } from '../inventory-group/inventory-group.component';
+
+
+
 @Component({
   selector: 'inventory-admin-modal',
   templateUrl: './inventory-admin-modal.component.html',
   styleUrls: ['./inventory-admin-modal.component.css']
-  //providers:[ProductService, MiceService, AdminPanelService, RestService, ]
 })
 
-@NgModule({
-  providers:[ProductService, MiceService, AdminPanelService, RestService, ]
-})
-export class InventoryAdminModalComponent{
+export class InventoryAdminModalComponent implements OnInit {
   form: FormGroup;
-  constructor(fb: FormBuilder, private pservice: ProductService, private mservice: MiceService) { 
+  service: IRestService;
+  //subscriptions: Subscription[];
+  constructor(fb: FormBuilder, private router: Router, private keyboard: ProductService, private mice: MiceService) { 
     //super('http://127.0.0.1:5000/archive/admin', http)
 
     this.form = fb.group({
@@ -29,6 +31,18 @@ export class InventoryAdminModalComponent{
       ProductPrice: ['', Validators.required],
       FilePath: ['', Validators.required],
     });
+  }
+
+  ngOnInit()
+  {
+    if(this.router.url.includes('archive/keyboards'))
+    {
+      this.service = this.keyboard;
+    }
+    if(this.router.url.includes('archive/mice'))
+    {
+     this.service = this.mice;
+    }
   }
 
   openDialog()
@@ -67,36 +81,28 @@ export class InventoryAdminModalComponent{
   {
     if(form.value['formType'] === 'Create')
     {
-      alert('FAILURE: THIS FEATURE IS NOT YET IMPLEMENTED');
+      console.log(form.value);
+      this.service.create(form.value).subscribe(msg => 
+        {
+          alert(msg['Response']);
+        });
     }
 
     if(form.value['formType'] === 'Update')
     {
-      alert('FAILURE: THIS FEATURE IS NOT YET IMPLEMENTED');
+      this.service.update(form.value['PID'], form.value).subscribe(msg =>
+        {
+          alert(msg['Response'])
+        })
     }
 
     if(form.value['formType'] === 'Delete')
     {
-      if(window.location.href.includes('keyboards'))
-      {
-        this.pservice.delete(form.value['PID'], form.value).subscribe(msg =>
-          {
-            alert(msg['Response']);
-          });
-      }
-
-      if(window.location.href.includes('mice'))
-      {
-        this.mservice.delete(form.value['PID'], form.value).subscribe(msg =>
-          {
-            alert(msg['Response']);
-          });
-      }
-
-      else
-      {
-        alert('You must be at a valid location to delete items.')
-      }
+      //super.delete
+      this.service.delete(form.value['PID'], form.value).subscribe(msg =>
+        {
+          alert(msg['Response']);
+        });
     }
   }
 

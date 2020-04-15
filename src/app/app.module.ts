@@ -21,7 +21,7 @@ import { InventoryKeyboardsComponent } from './inventory-keyboards/inventory-key
 import { InventoryMiceComponent } from './inventory-mice/inventory-mice.component';
 import { InventoryAdminModalComponent } from './inventory-admin-modal/inventory-admin-modal.component';
 
-import { RestService } from './rest.service';
+import { IRestService, RestService } from './rest.service';
 import { MiceService } from './mice-service.service';
 import { ProductService } from './product-service.service';
 import { AdminPanelService } from './admin-panel-service.service';

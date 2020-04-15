@@ -15,8 +15,15 @@ import { map, catchError} from 'rxjs/operators';
   providedIn: 'root'
 })
 export abstract class IRestService{
-  delete(id: string, payload: any): any{}
-  getAll(): any {}
+
+  create(resource): any
+  {}
+  delete(id: string, payload: any): any
+  {}
+  update(id:string, payload: any): any
+  {}
+  getAll(): any
+  {}
 }
 
 
@@ -24,27 +31,25 @@ export abstract class IRestService{
   providedIn: 'root'
 })
 export class RestService implements IRestService{
-  constructor(private url: string, private http: HttpClient) { }
+  constructor(private url: string, private http: HttpClient) {
+   }
 
   getAll() {
     return this.http.get(this.url)
-    .pipe(map((response: any) => response, catchError((response:Response) => this.handleError(response))));
-  }
-
-  create(resource) {
-    let header = new HttpHeaders({
-      'Access-Control-Allow-Origin': this.url
-    });
-    return this.http.post(this.url, resource, {headers: header})
     .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
   }
 
-  update(id) {
-    return this.http.patch(this.url + '/' + id, JSON.stringify({ isRead: true }))
-    .pipe(map((response: any) => response), catchError((response:Response) => this.handleError(response)));
+  create(resource) {
+    return this.http.post(this.url, resource)
+    .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
   }
 
-  delete(id, payload) {
+  update(id, payload) {
+    return this.http.patch(this.url + '/' + id, payload)
+    .pipe(map((response: any) => response), catchError((response: any) => this.handleError(response)));
+  }
+
+  delete(id, payload): any {
     return this.http.delete(this.url + '/' + id).pipe(map((response: any) => response), catchError((response: Response) => this.handleError(response)));
   }
 
@@ -58,19 +63,19 @@ export class RestService implements IRestService{
     return Observable.throw(new AppError(error));
   }
 
-  // UpdatePassword(resource) {
-  //   let header = new HttpHeaders({
-  //     'Access-Control-Allow-Origin': 'http://127.0.0.1:5000'
-  //   });
-  //   return this.http.put(this.url + 'archive/password', resource, {headers: header})
-  //   .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
-  // }
-  // GetPassword() {
-  //   let header = new HttpHeaders({
-  //     'Access-Control-Allow-Origin': 'http://127.0.0.1:5000'
-  //   });
-  //   return this.http.get(this.url + 'archive/password', {headers: header})
-  //   .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
-  // }
+  UpdatePassword(resource) {
+    let header = new HttpHeaders({
+      'Access-Control-Allow-Origin': 'http://127.0.0.1:5000'
+    });
+    return this.http.put(this.url + 'archive/password', resource, {headers: header})
+    .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
+  }
+  GetPassword() {
+    let header = new HttpHeaders({
+      'Access-Control-Allow-Origin': 'http://127.0.0.1:5000'
+    });
+    return this.http.get(this.url + 'archive/password', {headers: header})
+    .pipe(map((response: any) => response, catchError((response: any) => this.handleError(response))));
+  }
 
 }

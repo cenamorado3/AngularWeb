@@ -9,9 +9,8 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/archive/*": {"origins": "*"}})
 
 
-#logging.getLogger('flask_cors').level = logging.DEBUG
 
-
+#SECURE
 
 ######################          HOME
 
@@ -28,7 +27,7 @@ def home():
 
 
 
-######################          USER SERVICE
+######################          USER
 
 @app.route("/archive/password", methods=['PUT'])
 def ChangePassword():
@@ -116,6 +115,42 @@ def DeleteMouse(PID):
                 return jsonify({'Response':'Record failed to delete or does not exist'})
 
 
+@app.route("/archive/mice", methods=['POST'])
+def CreateMouse():
+        sqc = SqlServerConnector.PyDBCConnector()
+        sqc.connect()
+        data = json.loads(request.data)
+        result = sqc.Create("""
+                                INSERT INTO [dbo].[Mice]
+                                        ([ProductID]
+                                        ,[ProductName]
+                                        ,[ProductDescription]
+                                        ,[ProductPrice]
+                                        ,[FilePath])
+                                VALUES
+                                        ({0}
+                                        ,{1}
+                                        ,{2}
+                                        ,{3}
+                                        ,{4})
+                                """.format(int(data['PID']), sqc.QuoteWrap(data['ProductName']), sqc.QuoteWrap(data['ProductDescription']), float(data['ProductPrice']), sqc.QuoteWrap(data['FilePath'])))
+        if result == True:
+                return jsonify({'Response':'Record was succesfully created'})
+        else:
+                return jsonify({'Response':'Failed to create record or Product ID already exist.'})
+
+
+@app.route("/archive/mice/<string:PID>", methods=['PATCH'])
+def UpdateMouse(PID):
+        sqc = SqlServerConnector.PyDBCConnector()
+        sqc.connect()
+        data = json.loads(request.data)
+        result = sqc.Update("""
+                        UPDATE [Website].[dbo].[Mice]
+                        SET """ +  sqc.ValidateAndGenerateUpdate(data).format(PID, sqc.QuoteWrap(data['ProductName']), sqc.QuoteWrap(data['ProductDescription']), float(data['ProductPrice']), sqc.QuoteWrap(data['FilePath'])))
+        if result == True:
+                return jsonify({'Response':'Record was succesfully updated.'})
+
 @app.route("/archive/keyboards/<string:PID>", methods=['DELETE'])
 def DeleteKeyboard(PID):
         sqc = SqlServerConnector.PyDBCConnector()
@@ -124,8 +159,31 @@ def DeleteKeyboard(PID):
         if result == True:
                 return jsonify({'Response':'Record was succesfully deleted'})
         else:
-                return jsonify({'Response':'Record failed to delete or does not exist'})
+                return jsonify({'Response':'Failed to delete record or record does not exist'})
 
-
+@app.route("/archive/keyboards", methods=['POST'])
+def CreateKeyboard():
+        sqc = SqlServerConnector.PyDBCConnector()
+        sqc.connect()
+        data = json.loads(request.data)
+        print(data)
+        result = sqc.Create("""
+                                INSERT INTO [dbo].[Keyboards]
+                                        ([ProductID]
+                                        ,[ProductName]
+                                        ,[ProductDescription]
+                                        ,[ProductPrice]
+                                        ,[FilePath])
+                                VALUES
+                                        ({0}
+                                        ,{1}
+                                        ,{2}
+                                        ,{3}
+                                        ,{4})
+                                """.format(int(data['PID']), sqc.QuoteWrap(data['ProductName']), sqc.QuoteWrap(data['ProductDescription']), float(data['ProductPrice']), sqc.QuoteWrap(data['FilePath'])))
+        if result == True:
+                return jsonify({'Response':'Record was succesfully created'})
+        else:
+                return jsonify({'Response':'Failed to create record or Product ID already exist.'})
 
         

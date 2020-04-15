@@ -2,6 +2,7 @@ import pyodbc
 from AngularWeb.src.app.WebServer.User import User
 from AngularWeb.src.app.WebServer.Products import Products
 from typing import List
+from pyodbc import IntegrityError
 class PyDBCConnector:
     def connect(self):
         #redirect this to you database
@@ -13,10 +14,16 @@ class PyDBCConnector:
         return connection
 
 
-    # def Create(string: query):
-    #     cursor = connect()
-    #     cursor.execute(query)
-    #     cursor.commit
+    def Create(self, query: str):
+        try:
+            connection = self.connect()
+            cursor = connection.cursor()
+            cursor.execute(query)
+            cursor.commit()
+            return True
+        except IntegrityError:
+            return False
+
 
     def Read(self, query: str) -> List[User]:
         connection = self.connect()
@@ -25,15 +32,19 @@ class PyDBCConnector:
         users = []
         for row in cursor:
             users.append(User(row.user_name, row.password))
-        cursor.close()
-        connection.close()
+        self.CloseConnection(cursor, connection)
         return users
 
 
-    # def Update(string: query):
-    #     cursor = connect()
-    #     cursor.execute(query)
-    #     cursor.commit
+    def Update(self, query: str):
+        connection = self.connect()
+        cursor = connection.cursor()
+        cursor.execute(query)
+        cursor.commit()
+        self.CloseConnection(cursor, connection)
+        return True
+
+
     def UpdatePassword(self, query: str):
         connection = self.connect()
         cursor = connection.cursor()
@@ -64,6 +75,7 @@ class PyDBCConnector:
             self.CloseConnection(cursor, connection)
             return True
         else:
+            self.CloseConnection(cursor, connection)
             return False
 
 
@@ -80,8 +92,29 @@ class PyDBCConnector:
 
 
 
-
-
+    def QuoteWrap(self, s: str):
+        return "'" + s + "'"
+    #do the needful
     def CloseConnection(self, cursor, connection):
         cursor.close()
         connection.close()
+
+
+    #do the needful, again
+    def GetCursor(self):
+        connection = self.connect()
+        cursor = connection.cursor()
+
+    def ValidateAndGenerateUpdate(self, data):
+        query = ''
+        if str.isspace(data['ProductName']) == False:
+            query += '[ProductName] = {1},'
+        if data['ProductDescription'] != ' ':
+            query += '[ProductDescription] = {2},'
+        if data['ProductPrice'] != ' ':
+            query += '[ProductPrice] = {3},'
+        if data['FilePath'] != ' ':
+            query += '[FilePath] = {4} \n'
+
+        query +=  'WHERE ProductID = {0}'
+        return query
