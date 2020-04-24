@@ -54,15 +54,15 @@ class PyDBCConnector:
 
 
 
-    def ValidatePassword(self, query: str) -> List[User]:
+    def ValidatePassword(self, query: str):
         connection = self.connect()
         cursor = connection.cursor()
         cursor.execute(query)
-        users = []
+        password = ''
         for row in cursor:
-            users.append(User(row.user_name, row.password))
+            password = row.password
         self.CloseConnection(cursor, connection)
-        return users
+        return password
 
 
 

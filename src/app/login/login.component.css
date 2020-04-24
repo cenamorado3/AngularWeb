@@ -1,0 +1,35 @@
+.login-form
+{
+    display: none;
+}
+
+.displayLoginForm
+{
+    background-color: gray;
+    display: grid;
+    height: 200px;
+    width: 500px;
+}
+
+.login-control
+{
+    position: relative;
+    left: 160px;
+    top:20px;
+}
+
+.login-submit
+{
+    width: 100px;
+    height: 30px;
+    position: relative;
+    left: 180px;
+    top: 20px;
+}
+
+.register
+{
+    position: relative;
+    text-align: center;
+    top:30px;
+}

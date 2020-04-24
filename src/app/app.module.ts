@@ -11,7 +11,7 @@ import { DisarrayComponent } from './disarray/disarray.component';
 import { FormComponent } from './form/form.component';
 import { PasswordComponent } from './password/password.component';
 import { GithubComponent } from './github/github.component';
-import { GithubFollowersService } from './github-service.service';
+import { GithubFollowersService } from './Services/github-service.service';
 import { ArchiveComponent } from './archive/archive.component';
 import { NavigateToArchiveComponent } from './navigate-to-archive/navigate-to-archive.component';
 import { HomeComponent } from './home/home.component';
@@ -21,10 +21,11 @@ import { InventoryKeyboardsComponent } from './inventory-keyboards/inventory-key
 import { InventoryMiceComponent } from './inventory-mice/inventory-mice.component';
 import { InventoryAdminModalComponent } from './inventory-admin-modal/inventory-admin-modal.component';
 
-import { IRestService, RestService } from './rest.service';
-import { MiceService } from './mice-service.service';
-import { ProductService } from './product-service.service';
-import { AdminPanelService } from './admin-panel-service.service';
+import { IRestService, RestService } from './Services/rest.service';
+import { MiceService } from './Services/mice-service.service';
+import { ProductService } from './Services/product-service.service';
+import { AdminPanelService } from './Services/admin-panel-service.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AdminPanelService } from './admin-panel-service.service';
     InventoryGroupComponent,
     InventoryKeyboardsComponent,
     InventoryMiceComponent,
-    InventoryAdminModalComponent
+    InventoryAdminModalComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

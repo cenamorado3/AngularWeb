@@ -1,4 +1,4 @@
-import { GithubFollowersService } from '../github-service.service';
+import { GithubFollowersService } from '../Services/github-service.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

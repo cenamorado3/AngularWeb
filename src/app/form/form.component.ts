@@ -1,6 +1,6 @@
 import { Component, Input} from '@angular/core';
 import { NgModule } from '@angular/core';
-import { FlaskService } from '../flask-service.service';
+import { FlaskService } from '../Services/flask-service.service';
 
 @NgModule({
   declarations:[

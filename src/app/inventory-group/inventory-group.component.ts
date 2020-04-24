@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Injectable, OnDestroy, Output } from '@angular/core';
-import { ProductService } from '../product-service.service';
+import { ProductService } from '../Services/product-service.service';
 import { InventoryAdminModalComponent } from '../inventory-admin-modal/inventory-admin-modal.component';
-import { IRestService, RestService } from '../rest.service';
+import { IRestService, RestService } from '../Services/rest.service';
 import { Subscription } from 'rxjs';
 
 

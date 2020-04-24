@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { InventoryGroupComponent } from '../inventory-group/inventory-group.component';
-import { MiceService } from '../mice-service.service';
+import { MiceService } from '../Services/mice-service.service';
 
 @Component({
   selector: 'inventory-mice',

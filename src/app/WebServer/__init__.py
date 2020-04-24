@@ -24,8 +24,17 @@ def home():
                 response += '[{"user_name":' + '"' + result.user_name + '"' + '},{"password":'+ '"' + result.password + '"' + '}]'
         return json.dumps(response)
 
-
-
+######################          LOGIN
+@app.route("/archive/login", methods=['POST'])
+def ValidateUser():
+        data = json.loads(request.data)
+        sqc = SqlServerConnector.PyDBCConnector()
+        sqc.connect()
+        result = sqc.ValidatePassword('SELECT [password] FROM [Website].[dbo].[User] WHERE [user_name] = ' + sqc.QuoteWrap(data['account']))
+        if result == data['password']:
+                return jsonify({'Response': 'Login successful'})
+        else:
+             return jsonify({'Response': 'Login failed'})   
 
 ######################          USER
 
@@ -98,17 +107,12 @@ def GetMiceInventory():
 
 
 
-
-
-
-
-
 ######################        ADMIN
 @app.route("/archive/mice/<string:PID>", methods=['DELETE'])
 def DeleteMouse(PID):
         sqc = SqlServerConnector.PyDBCConnector()
         sqc.connect()
-        result =sqc.Delete(str.format('DELETE FROM [Website].[dbo].[Mice] WHERE ProductID={0}', PID))
+        result = sqc.Delete(str.format('DELETE FROM [Website].[dbo].[Mice] WHERE ProductID={0}', PID))
         if result == True:
                 return jsonify({'Response':'Record was succesfully deleted'})
         else:
@@ -155,7 +159,7 @@ def UpdateMouse(PID):
 def DeleteKeyboard(PID):
         sqc = SqlServerConnector.PyDBCConnector()
         sqc.connect()
-        result =sqc.Delete(str.format('DELETE FROM [Website].[dbo].[Keyboards] WHERE ProductID={0}', PID))
+        result = sqc.Delete(str.format('DELETE FROM [Website].[dbo].[Keyboards] WHERE ProductID={0}', PID))
         if result == True:
                 return jsonify({'Response':'Record was succesfully deleted'})
         else:
@@ -166,7 +170,6 @@ def CreateKeyboard():
         sqc = SqlServerConnector.PyDBCConnector()
         sqc.connect()
         data = json.loads(request.data)
-        print(data)
         result = sqc.Create("""
                                 INSERT INTO [dbo].[Keyboards]
                                         ([ProductID]

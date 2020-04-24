@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FlaskService } from '../flask-service.service';
+import { FlaskService } from '../Services/flask-service.service';
 
 
 @Component({

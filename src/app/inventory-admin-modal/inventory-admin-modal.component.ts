@@ -1,9 +1,9 @@
 import { Component, Injectable, Input, NgModule, OnInit, OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {MiceService} from "../mice-service.service";
-import { IRestService, RestService } from '../rest.service';
-import { ProductService } from '../product-service.service';
-import { AdminPanelService } from '../admin-panel-service.service';
+import {MiceService} from "../Services/mice-service.service";
+import { IRestService, RestService } from '../Services/rest.service';
+import { ProductService } from '../Services/product-service.service';
+import { AdminPanelService } from '../Services/admin-panel-service.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRouteSnapshot, Router, ActivatedRoute } from '@angular/router';
 import { InventoryGroupComponent } from '../inventory-group/inventory-group.component';

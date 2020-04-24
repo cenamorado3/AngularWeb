@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { InventoryGroupComponent } from '../inventory-group/inventory-group.component';
-import { ProductService } from '../product-service.service';
+import { ProductService } from '../Services/product-service.service';
 
 @Component({
   selector: 'inventory-keyboards',
