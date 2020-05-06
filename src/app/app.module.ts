@@ -28,6 +28,10 @@ import { AdminPanelService } from './Services/admin-panel-service.service';
 import { LoginComponent } from './login/login.component';
 
 
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,

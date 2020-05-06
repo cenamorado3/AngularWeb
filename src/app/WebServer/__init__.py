@@ -16,13 +16,13 @@ cors = CORS(app, resources={r"/archive/*": {"origins": "*"}})
 
 @app.route("/")
 def home():
-        sqc = SqlServerConnector.PyDBCConnector()
-        sqc.connect()
-        results = sqc.Read('SELECT * FROM [Website].[dbo].[User]')
-        response = ''
-        for result in results:
-                response += '[{"user_name":' + '"' + result.user_name + '"' + '},{"password":'+ '"' + result.password + '"' + '}]'
-        return json.dumps(response)
+        # sqc = SqlServerConnector.PyDBCConnector()
+        # sqc.connect()
+        # results = sqc.Read('SELECT * FROM [Website].[dbo].[User]')
+        # response = ''
+        # for result in results:
+        #         response += '[{"user_name":' + '"' + result.user_name + '"' + '},{"password":'+ '"' + result.password + '"' + '}]'
+        # return json.dumps(response)
 
 ######################          LOGIN
 @app.route("/archive/login", methods=['POST'])
@@ -35,6 +35,13 @@ def ValidateUser():
                 return jsonify({'Response': 'Login successful'})
         else:
              return jsonify({'Response': 'Login failed'})   
+
+
+
+@app.route("/archive/login/signing", methods=['GET'])
+def Sign():
+        return jsonify({'Signature': '011100110110100101100111011011100110000101110100011101010111001001100101'})
+
 
 ######################          USER
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../Services/login-service.service';
+import { TokenValidator } from '../common/TokenHandlers/TokenValidator';
+import { JWTTokenGenerator } from '../common/TokenHandlers/JWTGenerator';
 
 @Component({
   selector: 'login',
@@ -19,12 +21,22 @@ form: FormGroup;
 
   ngOnInit() {
   }
+
+  // ngOnDestroy()
+  // {
+        //NEED TO CLOSE SUBSCRIPTION(s) TO PREVENT DATA LEAK
+  // }
   onSubmit(form)
   {
     this.service.ValidateUser(form.value).subscribe(msg =>
       {
-        console.log(form.value)
-        alert(msg['Response']);
+        //alert(msg['Response']);
+      });
+
+      TokenValidator.ValidateToken(this.service).then(onfullfilled => {
+        console.log(JWTTokenGenerator.GenerateTokenFromPayload(JSON.stringify(form.value), onfullfilled['Token']));
+      }).catch(onrejected =>{
+        console.log(onrejected['Token']);
       });
   }
 
