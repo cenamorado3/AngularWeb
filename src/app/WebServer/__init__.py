@@ -16,6 +16,7 @@ cors = CORS(app, resources={r"/archive/*": {"origins": "*"}})
 
 @app.route("/")
 def home():
+        return jsonify({'Welcome': 'Message'})
         # sqc = SqlServerConnector.PyDBCConnector()
         # sqc.connect()
         # results = sqc.Read('SELECT * FROM [Website].[dbo].[User]')
